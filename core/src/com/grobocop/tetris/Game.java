@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.grobocop.tetris.pieces.TextureResolver;
 
 import static com.grobocop.tetris.Tetris.BOARD_HEIGHT;
 import static com.grobocop.tetris.Tetris.BOARD_WIDTH;
@@ -31,7 +30,6 @@ public class Game extends ApplicationAdapter {
     private Texture emptyBlockTexture;
     private OrthographicCamera camera;
     private Tetris tetris;
-    private InputHandler handler;
     private TextureResolver textureResolver;
     private long lastFallTime = 0L;
 
@@ -50,19 +48,7 @@ public class Game extends ApplicationAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WIDTH, HEIGHT);
         tetris = new Tetris();
-        handler = new InputHandler(tetris);
-        Gdx.input.setInputProcessor(handler);
-    }
-
-    private void loadTextures() {
-        emptyBlockTexture = new Texture("empty_block.png");
-        redBlock = new Texture("red_block.png");
-        blueBlock = new Texture("blue_block.png");
-        yellowBlock = new Texture("yellow_block.png");
-        greenBlock = new Texture("green_block.png");
-        purpleBlock = new Texture("purple_block.png");
-        whiteBlock = new Texture("white_block.png");
-        darkBlueBlock = new Texture("dark_blue_block.png");
+        Gdx.input.setInputProcessor(new InputHandler(tetris));
     }
 
     @Override
@@ -83,6 +69,17 @@ public class Game extends ApplicationAdapter {
         purpleBlock.dispose();
         whiteBlock.dispose();
         darkBlueBlock.dispose();
+    }
+
+    private void loadTextures() {
+        emptyBlockTexture = new Texture("empty_block.png");
+        redBlock = new Texture("red_block.png");
+        blueBlock = new Texture("blue_block.png");
+        yellowBlock = new Texture("yellow_block.png");
+        greenBlock = new Texture("green_block.png");
+        purpleBlock = new Texture("purple_block.png");
+        whiteBlock = new Texture("white_block.png");
+        darkBlueBlock = new Texture("dark_blue_block.png");
     }
 
     private void fall() {

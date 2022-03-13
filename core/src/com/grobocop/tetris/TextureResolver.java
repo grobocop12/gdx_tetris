@@ -1,4 +1,4 @@
-package com.grobocop.tetris.pieces;
+package com.grobocop.tetris;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.grobocop.tetris.BlockType;
