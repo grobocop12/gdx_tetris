@@ -29,12 +29,6 @@ public class Tetris {
         generator = new PieceGenerator(new Random());
         fillBoard();
         piece = generateNewPiece();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 9; j++) {
-                setPiece(j, i, RED);
-            }
-        }
-        setPiece(8, 2, NONE);
     }
 
     private void fillBoard() {
@@ -90,8 +84,7 @@ public class Tetris {
     }
 
     public Piece generateNewPiece() {
-//        return generator.generatePiece();
-        return PieceFactory.createLPiece();
+        return generator.generatePiece();
     }
 
     public boolean trySpawnNewPiece() {

@@ -53,7 +53,6 @@ public class Game extends ApplicationAdapter {
 
     @Override
     public void render() {
-        camera.update();
         draw();
         fall();
     }
@@ -93,6 +92,7 @@ public class Game extends ApplicationAdapter {
     }
 
     private void draw() {
+        camera.update();
         ScreenUtils.clear(0, 0, 0, 1);
         batch.begin();
         final Array<Block> blocks = tetris.getFallingBlocks();
