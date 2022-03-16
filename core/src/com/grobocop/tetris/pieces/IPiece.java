@@ -6,13 +6,13 @@ import com.grobocop.tetris.Board;
 
 import static com.grobocop.tetris.BlockType.NONE;
 import static com.grobocop.tetris.Tetris.*;
-import static com.grobocop.tetris.pieces.IPieceOrientation.HORIZONTAL;
-import static com.grobocop.tetris.pieces.IPieceOrientation.VERTICAL;
+import static com.grobocop.tetris.pieces.Orientation.HORIZONTAL;
+import static com.grobocop.tetris.pieces.Orientation.VERTICAL;
 
 public class IPiece extends Piece {
-    private IPieceOrientation orientation;
+    private Orientation orientation;
 
-    public IPiece(Array<Block> blocks, IPieceOrientation orientation) {
+    public IPiece(Array<Block> blocks, Orientation orientation) {
         super(blocks);
         this.orientation = orientation;
     }

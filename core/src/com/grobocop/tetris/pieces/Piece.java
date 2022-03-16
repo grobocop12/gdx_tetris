@@ -27,7 +27,7 @@ public abstract class Piece {
             int relativeY = blocks.get(i).y - center.y;
             int newX = relativeY + center.x;
             int newY = -relativeX + center.y;
-            if (newX < MIN_X || newX > MAX_X || newY < MIN_Y || newY > MAX_Y) {
+            if (newX < MIN_X || newX > MAX_X || newY < MIN_Y) {
                 return;
             }
             if (board.blockAt(newX, newY) != NONE) {
