@@ -52,22 +52,7 @@ public class Tetris {
     }
 
     public boolean tryMove(int deltaX, int deltaY) {
-        Array<Block> fallingBlocks = piece.getBlocks();
-        for (int i = 0; i < piece.getBlocks().size; i++) {
-            int newX = fallingBlocks.get(i).x + deltaX;
-            int newY = fallingBlocks.get(i).y + deltaY;
-            if (newX < MIN_X || newX > MAX_X || newY < MIN_Y) {
-                return false;
-            }
-            if (blockAt(newX, newY) != NONE) {
-                return false;
-            }
-        }
-        for (Block block : fallingBlocks) {
-            block.x += deltaX;
-            block.y += deltaY;
-        }
-        return true;
+        return this.piece.tryMove(deltaX, deltaY, board);
     }
 
     public void fall() {

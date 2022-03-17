@@ -43,4 +43,22 @@ public abstract class Piece {
             blocks.get(i).y = newY;
         }
     }
+
+    public boolean tryMove(int deltaX, int deltaY, Board board) {
+        for (int i = 0; i < blocks.size; i++) {
+            int newX = blocks.get(i).x + deltaX;
+            int newY = blocks.get(i).y + deltaY;
+            if (newX < MIN_X || newX > MAX_X || newY < MIN_Y) {
+                return false;
+            }
+            if (board.blockAt(newX, newY) != NONE) {
+                return false;
+            }
+        }
+        for (Block block : blocks) {
+            block.x += deltaX;
+            block.y += deltaY;
+        }
+        return true;
+    }
 }

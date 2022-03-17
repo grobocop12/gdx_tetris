@@ -28,13 +28,13 @@ public class ZPiece extends Piece {
         int deltaX = rotationCenter.x;
         int deltaY = rotationCenter.y;
         if (orientation == VERTICAL) {
-            if (tryRotateToHorizontalPosition(board, deltaX, deltaY)){
-                orientation= HORIZONTAL;
+            if (tryRotateToHorizontalPosition(board, deltaX, deltaY)) {
+                orientation = HORIZONTAL;
             }
         } else {
-           if(tryRotateToVerticalPosition(board, deltaX, deltaY)){
-               orientation = VERTICAL;
-           }
+            if (tryRotateToVerticalPosition(board, deltaX, deltaY)) {
+                orientation = VERTICAL;
+            }
         }
     }
 

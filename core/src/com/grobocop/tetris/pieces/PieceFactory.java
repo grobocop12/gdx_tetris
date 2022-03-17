@@ -50,7 +50,7 @@ public class PieceFactory {
         blocks.add(new Block(5, 19, PURPLE));
         blocks.add(new Block(5, 18, PURPLE));
         blocks.add(new Block(4, 18, PURPLE));
-        return new SPiece(blocks);
+        return new SPiece(blocks, HORIZONTAL);
     }
 
     public static TPiece createTPiece() {
