@@ -24,15 +24,16 @@ public class ZPiece extends Piece {
 
     @Override
     public void rotate(final Board board) {
-        Block rotationCenter = getRotationCenter();
-        int deltaX = rotationCenter.x;
-        int deltaY = rotationCenter.y;
+        Block center = getRotationCenter();
         if (orientation == VERTICAL) {
-            if (tryRotateToHorizontalPosition(board, deltaX, deltaY)) {
+            if(center.x == MAX_X) {
+                tryMove(-1,0,board);
+            }
+            if (tryRotateToHorizontalPosition(board, center.x, center.y)) {
                 orientation = HORIZONTAL;
             }
         } else {
-            if (tryRotateToVerticalPosition(board, deltaX, deltaY)) {
+            if (tryRotateToVerticalPosition(board, center.x, center.y)) {
                 orientation = VERTICAL;
             }
         }
