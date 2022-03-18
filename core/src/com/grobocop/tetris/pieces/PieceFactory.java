@@ -8,7 +8,7 @@ import static com.grobocop.tetris.pieces.Orientation.HORIZONTAL;
 import static com.grobocop.tetris.pieces.Orientation.VERTICAL;
 
 public class PieceFactory {
-    public static IPiece createIPiece() {
+    public static Piece createIPiece() {
         final Array<Block> blocks = new Array<>();
         blocks.add(new Block(5, 21, RED));
         blocks.add(new Block(5, 20, RED));
@@ -17,7 +17,7 @@ public class PieceFactory {
         return new IPiece(blocks, VERTICAL);
     }
 
-    public static JPiece createJPiece() {
+    public static Piece createJPiece() {
         final Array<Block> blocks = new Array<>();
         blocks.add(new Block(5, 19, BLUE));
         blocks.add(new Block(5, 18, BLUE));
@@ -26,7 +26,7 @@ public class PieceFactory {
         return new JPiece(blocks);
     }
 
-    public static LPiece createLPiece() {
+    public static Piece createLPiece() {
         final Array<Block> blocks = new Array<>();
         blocks.add(new Block(5, 19, YELLOW));
         blocks.add(new Block(5, 18, YELLOW));
@@ -35,7 +35,7 @@ public class PieceFactory {
         return new LPiece(blocks);
     }
 
-    public static OPiece createOPiece() {
+    public static Piece createOPiece() {
         final Array<Block> blocks = new Array<>();
         blocks.add(new Block(5, 19, GREEN));
         blocks.add(new Block(6, 19, GREEN));
@@ -44,16 +44,16 @@ public class PieceFactory {
         return new OPiece(blocks);
     }
 
-    public static SPiece createSPiece() {
+    public static Piece createSPiece() {
         final Array<Block> blocks = new Array<>();
         blocks.add(new Block(6, 19, PURPLE));
         blocks.add(new Block(5, 19, PURPLE));
         blocks.add(new Block(5, 18, PURPLE));
         blocks.add(new Block(4, 18, PURPLE));
-        return new SPiece(blocks, HORIZONTAL);
+        return new SZPiece(blocks, HORIZONTAL);
     }
 
-    public static TPiece createTPiece() {
+    public static Piece createTPiece() {
         final Array<Block> blocks = new Array<>();
         blocks.add(new Block(4, 18, WHITE));
         blocks.add(new Block(5, 18, WHITE));
@@ -62,12 +62,12 @@ public class PieceFactory {
         return new TPiece(blocks);
     }
 
-    public static ZPiece createZPiece() {
+    public static Piece createZPiece() {
         final Array<Block> blocks = new Array<>();
         blocks.add(new Block(4, 19, DARK_BLUE));
         blocks.add(new Block(5, 19, DARK_BLUE));
         blocks.add(new Block(5, 18, DARK_BLUE));
         blocks.add(new Block(6, 18, DARK_BLUE));
-        return new ZPiece(blocks, HORIZONTAL);
+        return new SZPiece(blocks, HORIZONTAL);
     }
 }
