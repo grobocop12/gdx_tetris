@@ -26,7 +26,7 @@ public class InputHandler implements InputProcessor {
                 tetris.tryMove(1, 0);
                 break;
             case Input.Keys.SPACE:
-                tetris.fall();
+                tetris.hardDrop();
                 break;
         }
         return false;

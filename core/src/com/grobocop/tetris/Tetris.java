@@ -39,9 +39,9 @@ public class Tetris {
         trySpawnNewPiece();
     }
 
-    public void fall() {
+    public void hardDrop() {
         if (tryMove(0, -1)) {
-            fall();
+            hardDrop();
         } else {
             spawnNewPiece();
         }
