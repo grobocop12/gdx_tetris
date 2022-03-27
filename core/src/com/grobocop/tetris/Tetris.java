@@ -2,7 +2,6 @@ package com.grobocop.tetris;
 
 import com.badlogic.gdx.utils.Array;
 import com.grobocop.tetris.pieces.Piece;
-import com.grobocop.tetris.pieces.PieceFactory;
 import com.grobocop.tetris.pieces.PieceGenerator;
 
 import java.util.HashSet;
@@ -10,7 +9,6 @@ import java.util.Random;
 import java.util.Set;
 
 import static com.grobocop.tetris.BlockType.NONE;
-import static com.grobocop.tetris.BlockType.RED;
 
 public class Tetris {
     public static final byte MAX_X = 9;
@@ -88,7 +86,6 @@ public class Tetris {
             setPiece(block.x, block.y, block.blockType);
         }
     }
-
 
     public void removeFullRows() {
         final Set<Integer> removed = new HashSet<>();

@@ -3,15 +3,24 @@ package com.grobocop.tetris.pieces;
 import java.util.Random;
 
 public class PieceGenerator {
-
     private final Random random;
+    private int lastNumber;
 
     public PieceGenerator(Random random) {
         this.random = random;
     }
 
-    public Piece generatePiece() {
+    private int generateNumber() {
         int pieceNumber = random.nextInt(7);
+        if (pieceNumber == lastNumber) {
+            return generateNumber();
+        }
+        lastNumber = pieceNumber;
+        return pieceNumber;
+    }
+
+    public Piece generatePiece() {
+        int pieceNumber = generateNumber();
         switch (pieceNumber) {
             case 0:
                 return PieceFactory.createIPiece();
