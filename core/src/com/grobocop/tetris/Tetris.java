@@ -2,7 +2,6 @@ package com.grobocop.tetris;
 
 import com.badlogic.gdx.utils.Array;
 import com.grobocop.tetris.pieces.Piece;
-import com.grobocop.tetris.pieces.PieceFactory;
 import com.grobocop.tetris.pieces.PieceGenerator;
 
 import java.util.HashSet;
@@ -10,7 +9,6 @@ import java.util.Random;
 import java.util.Set;
 
 import static com.grobocop.tetris.BlockType.NONE;
-import static com.grobocop.tetris.BlockType.RED;
 
 public class Tetris {
     public static final byte MAX_X = 9;
@@ -52,22 +50,7 @@ public class Tetris {
     }
 
     public boolean tryMove(int deltaX, int deltaY) {
-        Array<Block> fallingBlocks = piece.getBlocks();
-        for (int i = 0; i < piece.getBlocks().size; i++) {
-            int newX = fallingBlocks.get(i).x + deltaX;
-            int newY = fallingBlocks.get(i).y + deltaY;
-            if (newX < MIN_X || newX > MAX_X || newY < MIN_Y) {
-                return false;
-            }
-            if (blockAt(newX, newY) != NONE) {
-                return false;
-            }
-        }
-        for (Block block : fallingBlocks) {
-            block.x += deltaX;
-            block.y += deltaY;
-        }
-        return true;
+        return this.piece.tryMove(deltaX, deltaY, board);
     }
 
     public void fall() {
@@ -103,7 +86,6 @@ public class Tetris {
             setPiece(block.x, block.y, block.blockType);
         }
     }
-
 
     public void removeFullRows() {
         final Set<Integer> removed = new HashSet<>();
