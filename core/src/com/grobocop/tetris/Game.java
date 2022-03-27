@@ -94,8 +94,4 @@ public class Game extends ApplicationAdapter {
         tetris.drawBoardAndFallingPiece(batch, textureResolver, BLOCK_HEIGHT, BLOCK_WIDTH);
         batch.end();
     }
-
-    private void spawnNewPiece() {
-
-    }
 }
