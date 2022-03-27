@@ -48,7 +48,7 @@ public class Board {
     public void pullDownToRow(int y) {
         for (int i = y; i < boardHeight; i++) {
             for (int j = 0; j < boardWidth; j++) {
-                setBlock(j, i, blockAt(j, i+1));
+                setBlock(j, i, blockAt(j, i + 1));
             }
         }
     }

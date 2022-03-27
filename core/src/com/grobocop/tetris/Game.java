@@ -5,12 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-
-import static com.grobocop.tetris.Tetris.BOARD_HEIGHT;
-import static com.grobocop.tetris.Tetris.BOARD_WIDTH;
 
 
 public class Game extends ApplicationAdapter {
@@ -86,7 +82,7 @@ public class Game extends ApplicationAdapter {
             if (tetris.tryMove(0, -1)) {
                 lastFallTime = TimeUtils.millis();
             } else {
-                spawnNewPiece();
+                tetris.spawnNewPiece();
             }
         }
     }
@@ -95,25 +91,11 @@ public class Game extends ApplicationAdapter {
         camera.update();
         ScreenUtils.clear(0, 0, 0, 1);
         batch.begin();
-        final Array<Block> blocks = tetris.getFallingBlocks();
-        for (int i = 0; i < BOARD_HEIGHT; i++) {
-            for (int j = 0; j < BOARD_WIDTH; j++) {
-                batch.draw(textureResolver.findTexture(tetris.blockAt(j, i)),
-                        j * BLOCK_HEIGHT,
-                        i * BLOCK_WIDTH);
-            }
-        }
-        for (Block block : blocks) {
-            batch.draw(textureResolver.findTexture(block.blockType),
-                    block.x * BLOCK_HEIGHT,
-                    block.y * BLOCK_WIDTH);
-        }
+        tetris.drawBoardAndFallingPiece(batch, textureResolver, BLOCK_HEIGHT, BLOCK_WIDTH);
         batch.end();
     }
 
     private void spawnNewPiece() {
-        tetris.stopFallingPiece();
-        tetris.removeFullRows();
-        tetris.trySpawnNewPiece();
+
     }
 }

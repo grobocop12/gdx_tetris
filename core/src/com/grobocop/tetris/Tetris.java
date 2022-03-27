@@ -1,6 +1,6 @@
 package com.grobocop.tetris;
 
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.grobocop.tetris.pieces.Piece;
 import com.grobocop.tetris.pieces.PieceGenerator;
 
@@ -29,37 +29,36 @@ public class Tetris {
         piece = generateNewPiece();
     }
 
-    private void fillBoard() {
-        for (int i = 0; i < BOARD_HEIGHT; i++) {
-            for (int j = 0; j < BOARD_WIDTH; j++) {
-                setPiece(j, i, NONE);
-            }
-        }
-    }
-
-    public void setPiece(int x, int y, BlockType blockType) {
-        board.setBlock(x, y, blockType);
-    }
-
-    public BlockType blockAt(int x, int y) {
-        return board.blockAt(x, y);
-    }
-
-    public Array<Block> getFallingBlocks() {
-        return piece.getBlocks();
-    }
-
     public boolean tryMove(int deltaX, int deltaY) {
         return this.piece.tryMove(deltaX, deltaY, board);
     }
 
-    public void fall() {
-        while (tryMove(0, -1)) {
-
-        }
+    public void spawnNewPiece() {
         stopFallingPiece();
         removeFullRows();
         trySpawnNewPiece();
+    }
+
+    public void fall() {
+        if (tryMove(0, -1)) {
+            fall();
+        } else {
+            spawnNewPiece();
+        }
+    }
+
+    public void drawBoardAndFallingPiece(SpriteBatch batch,
+                                         TextureResolver textureResolver,
+                                         float blockHeight,
+                                         float blockWidth) {
+        for (int i = 0; i < BOARD_HEIGHT; i++) {
+            for (int j = 0; j < BOARD_WIDTH; j++) {
+                batch.draw(textureResolver.findTexture(board.blockAt(j, i)), j * blockHeight, i * blockWidth);
+            }
+        }
+        for (Block block : piece.getBlocks()) {
+            batch.draw(textureResolver.findTexture(block.blockType), block.x * blockHeight, block.y * blockWidth);
+        }
     }
 
     public void rotate() {
@@ -70,10 +69,10 @@ public class Tetris {
         return generator.generatePiece();
     }
 
-    public boolean trySpawnNewPiece() {
+    private boolean trySpawnNewPiece() {
         final Piece piece = generateNewPiece();
         for (Block block : piece.getBlocks()) {
-            if (blockAt(block.x, block.y) != NONE) {
+            if (board.blockAt(block.x, block.y) != NONE) {
                 return false;
             }
         }
@@ -81,13 +80,13 @@ public class Tetris {
         return true;
     }
 
-    public void stopFallingPiece() {
+    private void stopFallingPiece() {
         for (Block block : piece.getBlocks()) {
-            setPiece(block.x, block.y, block.blockType);
+            board.setBlock(block.x, block.y, block.blockType);
         }
     }
 
-    public void removeFullRows() {
+    private void removeFullRows() {
         final Set<Integer> removed = new HashSet<>();
         for (Block block : piece.getBlocks()) {
             if (board.removeRowIfFull(block.y)) {
@@ -95,5 +94,13 @@ public class Tetris {
             }
         }
         removed.stream().sorted((a, b) -> -(a - b)).forEach(board::pullDownToRow);
+    }
+
+    private void fillBoard() {
+        for (int i = 0; i < BOARD_HEIGHT; i++) {
+            for (int j = 0; j < BOARD_WIDTH; j++) {
+                board.setBlock(j, i, NONE);
+            }
+        }
     }
 }
