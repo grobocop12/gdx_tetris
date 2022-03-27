@@ -1,7 +1,6 @@
 package com.grobocop.tetris;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.grobocop.tetris.BlockType;
 
 public class TextureResolver {
     private final Texture none;
