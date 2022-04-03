@@ -1,7 +1,7 @@
 package com.grobocop.tetris;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
 
-public class Game extends ApplicationAdapter {
+public class GameScreen implements Screen {
     public static final float WIDTH = 400.0f;
     public static final float HEIGHT = 800.0f;
     public static final float BLOCK_HEIGHT = 40;
@@ -29,9 +29,8 @@ public class Game extends ApplicationAdapter {
     private TextureResolver textureResolver;
     private long lastFallTime = 0L;
 
-    @Override
-    public void create() {
-        batch = new SpriteBatch();
+    public GameScreen(SpriteBatch batch, OrthographicCamera camera) {
+        this.batch = batch;
         loadTextures();
         textureResolver = new TextureResolver(emptyBlockTexture,
                 redBlock,
@@ -41,16 +40,41 @@ public class Game extends ApplicationAdapter {
                 purpleBlock,
                 whiteBlock,
                 darkBlueBlock);
-        camera = new OrthographicCamera();
+        this.camera = camera;
         camera.setToOrtho(false, WIDTH, HEIGHT);
         tetris = new Tetris();
         Gdx.input.setInputProcessor(new InputHandler(tetris));
     }
 
     @Override
-    public void render() {
+    public void render(float delta) {
         draw();
         fall();
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     @Override
