@@ -5,7 +5,7 @@ import com.grobocop.tetris.Block;
 import com.grobocop.tetris.Board;
 
 import static com.grobocop.tetris.BlockType.NONE;
-import static com.grobocop.tetris.Tetris.*;
+import static com.grobocop.tetris.GameConstants.*;
 import static com.grobocop.tetris.pieces.Rotation.CLOCKWISE;
 
 public abstract class Piece {

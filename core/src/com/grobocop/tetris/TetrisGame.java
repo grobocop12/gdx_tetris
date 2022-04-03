@@ -5,13 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.grobocop.tetris.input.GameInputHandler;
 import com.grobocop.tetris.input.TitleScreenInputHandler;
 
 public class TetrisGame extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
     public OrthographicCamera camera;
-    private MainMenu mainMenu;
+    private TitleScreen titleScreen;
+    private GameScreen gameScreen;
 
     @Override
     public void create() {
@@ -19,8 +21,8 @@ public class TetrisGame extends Game {
         font = new BitmapFont();
         camera = new OrthographicCamera();
         Gdx.input.setInputProcessor(new TitleScreenInputHandler(this));
-        mainMenu = new MainMenu(batch, font, camera);
-        setScreen(mainMenu);
+        titleScreen = new TitleScreen(batch, font, camera);
+        setScreen(titleScreen);
     }
 
     @Override
@@ -32,12 +34,16 @@ public class TetrisGame extends Game {
     public void dispose() {
         batch.dispose();
         font.dispose();
-        mainMenu.dispose();
+        titleScreen.dispose();
+        gameScreen.dispose();
         super.dispose();
     }
 
     public void showGameScreen() {
-        setScreen(new GameScreen(batch, camera));
-        mainMenu.dispose();
+        final BoardController boardController = new BoardController();
+        Gdx.input.setInputProcessor(new GameInputHandler(boardController));
+        gameScreen = new GameScreen(batch, camera, boardController);
+        setScreen(gameScreen);
+        titleScreen.dispose();
     }
 }

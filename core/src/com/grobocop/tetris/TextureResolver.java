@@ -12,7 +12,14 @@ public class TextureResolver {
     private final Texture white;
     private final Texture darkBlue;
 
-    public TextureResolver(Texture none, Texture red, Texture blue, Texture yellow, Texture green, Texture purple, Texture white, Texture darkBlue) {
+    public TextureResolver(Texture none,
+                           Texture red,
+                           Texture blue,
+                           Texture yellow,
+                           Texture green,
+                           Texture purple,
+                           Texture white,
+                           Texture darkBlue) {
         this.none = none;
         this.red = red;
         this.blue = blue;

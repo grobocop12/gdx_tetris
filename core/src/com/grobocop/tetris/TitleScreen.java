@@ -1,11 +1,7 @@
 package com.grobocop.tetris;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -13,12 +9,12 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import static com.grobocop.tetris.GameConstants.HEIGHT;
 import static com.grobocop.tetris.GameConstants.WIDTH;
 
-public class MainMenu implements Screen {
+public class TitleScreen implements Screen {
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
     private final BitmapFont font;
 
-    public MainMenu(SpriteBatch batch, BitmapFont font, OrthographicCamera camera) {
+    public TitleScreen(SpriteBatch batch, BitmapFont font, OrthographicCamera camera) {
         this.batch = batch;
         this.font = font;
         this.camera = camera;

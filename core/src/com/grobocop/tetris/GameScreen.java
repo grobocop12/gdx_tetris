@@ -1,13 +1,11 @@
 package com.grobocop.tetris;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.grobocop.tetris.input.InputHandler;
 
 import static com.grobocop.tetris.GameConstants.*;
 
@@ -23,14 +21,16 @@ public class GameScreen implements Screen {
     private Texture darkBlueBlock;
     private Texture emptyBlockTexture;
     private final OrthographicCamera camera;
-    private final Tetris tetris;
+    private final BoardController boardController;
     private final TextureResolver textureResolver;
     private long lastFallTime = 0L;
 
-    public GameScreen(SpriteBatch batch, OrthographicCamera camera) {
+    public GameScreen(SpriteBatch batch, OrthographicCamera camera, BoardController boardController) {
         this.batch = batch;
+        this.camera = camera;
+        this.boardController = boardController;
         loadTextures();
-        textureResolver = new TextureResolver(emptyBlockTexture,
+        this.textureResolver = new TextureResolver(emptyBlockTexture,
                 redBlock,
                 blueBlock,
                 yellowBlock,
@@ -38,15 +38,12 @@ public class GameScreen implements Screen {
                 purpleBlock,
                 whiteBlock,
                 darkBlueBlock);
-        this.camera = camera;
         camera.setToOrtho(false, WIDTH, HEIGHT);
-        tetris = new Tetris();
-        Gdx.input.setInputProcessor(new InputHandler(tetris));
     }
 
     @Override
     public void render(float delta) {
-        draw();
+        drawGame();
         fall();
     }
 
@@ -100,19 +97,19 @@ public class GameScreen implements Screen {
 
     private void fall() {
         if (TimeUtils.millis() - lastFallTime > 500) {
-            if (tetris.tryMove(0, -1)) {
+            if (boardController.tryMove(0, -1)) {
                 lastFallTime = TimeUtils.millis();
             } else {
-                tetris.spawnNewPiece();
+                boardController.spawnNewPiece();
             }
         }
     }
 
-    private void draw() {
+    private void drawGame() {
         camera.update();
         ScreenUtils.clear(0, 0, 0, 1);
         batch.begin();
-        tetris.drawBoardAndFallingPiece(batch, textureResolver, BLOCK_HEIGHT, BLOCK_WIDTH);
+        boardController.drawBoardAndFallingPiece(batch, textureResolver, BLOCK_HEIGHT, BLOCK_WIDTH);
         batch.end();
     }
 }

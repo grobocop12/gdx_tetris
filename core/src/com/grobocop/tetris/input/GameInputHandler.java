@@ -2,32 +2,32 @@ package com.grobocop.tetris.input;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.grobocop.tetris.Tetris;
+import com.grobocop.tetris.BoardController;
 
-public class InputHandler implements InputProcessor {
-    private final Tetris tetris;
+public class GameInputHandler implements InputProcessor {
+    private final BoardController boardController;
 
-    public InputHandler(Tetris tetris) {
-        this.tetris = tetris;
+    public GameInputHandler(BoardController boardController) {
+        this.boardController = boardController;
     }
 
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.UP:
-                tetris.rotate();
+                boardController.rotate();
                 break;
             case Input.Keys.DOWN:
-                tetris.tryMove(0, -1);
+                boardController.tryMove(0, -1);
                 break;
             case Input.Keys.LEFT:
-                tetris.tryMove(-1, 0);
+                boardController.tryMove(-1, 0);
                 break;
             case Input.Keys.RIGHT:
-                tetris.tryMove(1, 0);
+                boardController.tryMove(1, 0);
                 break;
             case Input.Keys.SPACE:
-                tetris.hardDrop();
+                boardController.hardDrop();
                 break;
         }
         return false;
