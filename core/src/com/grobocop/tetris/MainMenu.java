@@ -3,17 +3,26 @@ package com.grobocop.tetris;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class MainMenu implements Screen {
-    private final TetrisGame game;
-    private final OrthographicCamera camera;
+import static com.grobocop.tetris.GameConstants.HEIGHT;
+import static com.grobocop.tetris.GameConstants.WIDTH;
 
-    public MainMenu(TetrisGame game) {
-        this.game = game;
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 400, 800);
+public class MainMenu implements Screen {
+    private final OrthographicCamera camera;
+    private final SpriteBatch batch;
+    private final BitmapFont font;
+
+    public MainMenu(SpriteBatch batch, BitmapFont font, OrthographicCamera camera) {
+        this.batch = batch;
+        this.font = font;
+        this.camera = camera;
+        camera.setToOrtho(false, WIDTH, HEIGHT);
     }
 
     @Override
@@ -25,17 +34,11 @@ public class MainMenu implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
-
-        game.batch.begin();
-        game.font.draw(game.batch, "Welcome to Tetris ", 100, 150);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
-        game.batch.end();
-
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            game.setScreen(new GameScreen(game.batch, camera));
-            dispose();
-        }
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        font.draw(batch, "Welcome to Tetris ", 100, 150);
+        font.draw(batch, "Press space to begin!", 100, 100);
+        batch.end();
     }
 
     @Override

@@ -7,15 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.grobocop.tetris.input.InputHandler;
+
+import static com.grobocop.tetris.GameConstants.*;
 
 
 public class GameScreen implements Screen {
-    public static final float WIDTH = 400.0f;
-    public static final float HEIGHT = 800.0f;
-    public static final float BLOCK_HEIGHT = 40;
-    public static final float BLOCK_WIDTH = 40;
-
-    private SpriteBatch batch;
+    private final SpriteBatch batch;
     private Texture redBlock;
     private Texture blueBlock;
     private Texture yellowBlock;
@@ -24,9 +22,9 @@ public class GameScreen implements Screen {
     private Texture whiteBlock;
     private Texture darkBlueBlock;
     private Texture emptyBlockTexture;
-    private OrthographicCamera camera;
-    private Tetris tetris;
-    private TextureResolver textureResolver;
+    private final OrthographicCamera camera;
+    private final Tetris tetris;
+    private final TextureResolver textureResolver;
     private long lastFallTime = 0L;
 
     public GameScreen(SpriteBatch batch, OrthographicCamera camera) {
@@ -79,7 +77,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        batch.dispose();
         emptyBlockTexture.dispose();
         redBlock.dispose();
         blueBlock.dispose();

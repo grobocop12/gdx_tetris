@@ -1,7 +1,8 @@
-package com.grobocop.tetris;
+package com.grobocop.tetris.input;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.grobocop.tetris.Tetris;
 
 public class InputHandler implements InputProcessor {
     private final Tetris tetris;
