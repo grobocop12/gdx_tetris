@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.grobocop.tetris.Block;
 import com.grobocop.tetris.Board;
 
-import static com.grobocop.tetris.Tetris.MAX_X;
+import static com.grobocop.tetris.GameConstants.MAX_X;
 import static com.grobocop.tetris.pieces.Orientation.HORIZONTAL;
 import static com.grobocop.tetris.pieces.Orientation.VERTICAL;
 import static com.grobocop.tetris.pieces.Rotation.CLOCKWISE;

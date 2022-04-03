@@ -5,7 +5,7 @@ import com.grobocop.tetris.Block;
 import com.grobocop.tetris.Board;
 
 import static com.grobocop.tetris.BlockType.NONE;
-import static com.grobocop.tetris.Tetris.*;
+import static com.grobocop.tetris.GameConstants.*;
 import static com.grobocop.tetris.pieces.Orientation.HORIZONTAL;
 import static com.grobocop.tetris.pieces.Orientation.VERTICAL;
 
@@ -24,7 +24,6 @@ public class IPiece extends Piece {
 
     @Override
     public void rotate(Board board) {
-        final Block rotationCenter = getRotationCenter();
         if (orientation == VERTICAL) {
             setHorizontalOrientation(board);
         } else {

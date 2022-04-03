@@ -9,20 +9,16 @@ import java.util.Random;
 import java.util.Set;
 
 import static com.grobocop.tetris.BlockType.NONE;
+import static com.grobocop.tetris.GameConstants.BOARD_HEIGHT;
+import static com.grobocop.tetris.GameConstants.BOARD_WIDTH;
 
-public class Tetris {
-    public static final byte MAX_X = 9;
-    public static final byte MAX_Y = 19;
-    public static final byte MIN_X = 0;
-    public static final byte MIN_Y = 0;
-    public static final byte BOARD_WIDTH = 10;
-    public static final byte BOARD_HEIGHT = 20;
+public class BoardController {
 
     private final Board board;
     private final PieceGenerator generator;
     private Piece piece;
 
-    public Tetris() {
+    public BoardController() {
         board = new Board(new BlockType[BOARD_HEIGHT * BOARD_WIDTH], BOARD_WIDTH, BOARD_HEIGHT);
         generator = new PieceGenerator(new Random());
         fillBoard();

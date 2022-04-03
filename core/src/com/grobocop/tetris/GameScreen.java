@@ -1,21 +1,17 @@
 package com.grobocop.tetris;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import static com.grobocop.tetris.GameConstants.*;
 
-public class Game extends ApplicationAdapter {
-    public static final float WIDTH = 400.0f;
-    public static final float HEIGHT = 800.0f;
-    public static final float BLOCK_HEIGHT = 40;
-    public static final float BLOCK_WIDTH = 40;
 
-    private SpriteBatch batch;
+public class GameScreen implements Screen {
+    private final SpriteBatch batch;
     private Texture redBlock;
     private Texture blueBlock;
     private Texture yellowBlock;
@@ -24,16 +20,17 @@ public class Game extends ApplicationAdapter {
     private Texture whiteBlock;
     private Texture darkBlueBlock;
     private Texture emptyBlockTexture;
-    private OrthographicCamera camera;
-    private Tetris tetris;
-    private TextureResolver textureResolver;
+    private final OrthographicCamera camera;
+    private final BoardController boardController;
+    private final TextureResolver textureResolver;
     private long lastFallTime = 0L;
 
-    @Override
-    public void create() {
-        batch = new SpriteBatch();
+    public GameScreen(SpriteBatch batch, OrthographicCamera camera, BoardController boardController) {
+        this.batch = batch;
+        this.camera = camera;
+        this.boardController = boardController;
         loadTextures();
-        textureResolver = new TextureResolver(emptyBlockTexture,
+        this.textureResolver = new TextureResolver(emptyBlockTexture,
                 redBlock,
                 blueBlock,
                 yellowBlock,
@@ -41,21 +38,42 @@ public class Game extends ApplicationAdapter {
                 purpleBlock,
                 whiteBlock,
                 darkBlueBlock);
-        camera = new OrthographicCamera();
         camera.setToOrtho(false, WIDTH, HEIGHT);
-        tetris = new Tetris();
-        Gdx.input.setInputProcessor(new InputHandler(tetris));
     }
 
     @Override
-    public void render() {
-        draw();
+    public void render(float delta) {
+        drawGame();
         fall();
     }
 
     @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
     public void dispose() {
-        batch.dispose();
         emptyBlockTexture.dispose();
         redBlock.dispose();
         blueBlock.dispose();
@@ -79,19 +97,19 @@ public class Game extends ApplicationAdapter {
 
     private void fall() {
         if (TimeUtils.millis() - lastFallTime > 500) {
-            if (tetris.tryMove(0, -1)) {
+            if (boardController.tryMove(0, -1)) {
                 lastFallTime = TimeUtils.millis();
             } else {
-                tetris.spawnNewPiece();
+                boardController.spawnNewPiece();
             }
         }
     }
 
-    private void draw() {
+    private void drawGame() {
         camera.update();
         ScreenUtils.clear(0, 0, 0, 1);
         batch.begin();
-        tetris.drawBoardAndFallingPiece(batch, textureResolver, BLOCK_HEIGHT, BLOCK_WIDTH);
+        boardController.drawBoardAndFallingPiece(batch, textureResolver, BLOCK_HEIGHT, BLOCK_WIDTH);
         batch.end();
     }
 }
