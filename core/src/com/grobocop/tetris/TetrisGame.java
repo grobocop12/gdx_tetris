@@ -14,6 +14,7 @@ public class TetrisGame extends Game {
     public OrthographicCamera camera;
     private TitleScreen titleScreen;
     private GameScreen gameScreen;
+    private GameOverScreen gameOverScreen;
 
     @Override
     public void create() {
@@ -36,14 +37,22 @@ public class TetrisGame extends Game {
         font.dispose();
         titleScreen.dispose();
         gameScreen.dispose();
+        gameOverScreen.dispose();
         super.dispose();
     }
 
     public void showGameScreen() {
         final BoardController boardController = new BoardController();
+        gameScreen = new GameScreen(batch, camera, boardController, this);
         Gdx.input.setInputProcessor(new GameInputHandler(boardController));
-        gameScreen = new GameScreen(batch, camera, boardController);
         setScreen(gameScreen);
         titleScreen.dispose();
+    }
+
+    public void showGameOverScreen() {
+        gameScreen.dispose();
+        gameOverScreen = new GameOverScreen(batch, camera, font);
+        setScreen(gameOverScreen);
+        gameScreen.dispose();
     }
 }

@@ -6,19 +6,15 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import static com.grobocop.tetris.GameConstants.HEIGHT;
-import static com.grobocop.tetris.GameConstants.WIDTH;
-
-public class TitleScreen implements Screen {
-    private final OrthographicCamera camera;
+public class GameOverScreen implements Screen {
     private final SpriteBatch batch;
+    private final OrthographicCamera camera;
     private final BitmapFont font;
 
-    public TitleScreen(SpriteBatch batch, BitmapFont font, OrthographicCamera camera) {
+    public GameOverScreen(SpriteBatch batch, OrthographicCamera camera, BitmapFont font) {
         this.batch = batch;
-        this.font = font;
         this.camera = camera;
-        camera.setToOrtho(false, WIDTH, HEIGHT);
+        this.font = font;
     }
 
     @Override
@@ -32,8 +28,7 @@ public class TitleScreen implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        font.draw(batch, "Welcome to Tetris", 100, 150);
-        font.draw(batch, "Press space to begin!", 100, 100);
+        font.draw(batch, "Game over", 100, 150);
         batch.end();
     }
 
