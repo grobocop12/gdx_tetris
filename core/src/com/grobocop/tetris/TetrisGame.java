@@ -13,6 +13,7 @@ public class TetrisGame extends Game {
     public BitmapFont font;
     public OrthographicCamera camera;
     private TitleScreen titleScreen;
+    private BoardController boardController;
     private GameScreen gameScreen;
     private GameOverScreen gameOverScreen;
 
@@ -23,6 +24,9 @@ public class TetrisGame extends Game {
         camera = new OrthographicCamera();
         Gdx.input.setInputProcessor(new TitleScreenInputHandler(this));
         titleScreen = new TitleScreen(batch, font, camera);
+        boardController = new BoardController();
+        gameScreen = new GameScreen(batch, camera, boardController, this);
+        gameOverScreen = new GameOverScreen(batch, camera, font);
         setScreen(titleScreen);
     }
 
@@ -42,8 +46,6 @@ public class TetrisGame extends Game {
     }
 
     public void showGameScreen() {
-        final BoardController boardController = new BoardController();
-        gameScreen = new GameScreen(batch, camera, boardController, this);
         Gdx.input.setInputProcessor(new GameInputHandler(boardController));
         setScreen(gameScreen);
         titleScreen.dispose();
@@ -51,8 +53,6 @@ public class TetrisGame extends Game {
 
     public void showGameOverScreen() {
         gameScreen.dispose();
-        gameOverScreen = new GameOverScreen(batch, camera, font);
         setScreen(gameOverScreen);
-        gameScreen.dispose();
     }
 }
