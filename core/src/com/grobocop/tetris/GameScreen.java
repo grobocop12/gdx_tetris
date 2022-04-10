@@ -24,11 +24,13 @@ public class GameScreen implements Screen {
     private final BoardController boardController;
     private final TextureResolver textureResolver;
     private long lastFallTime = 0L;
+    private final TetrisGame tetrisGame;
 
-    public GameScreen(SpriteBatch batch, OrthographicCamera camera, BoardController boardController) {
+    public GameScreen(SpriteBatch batch, OrthographicCamera camera, BoardController boardController, TetrisGame tetrisGame) {
         this.batch = batch;
         this.camera = camera;
         this.boardController = boardController;
+        this.tetrisGame = tetrisGame;
         loadTextures();
         this.textureResolver = new TextureResolver(emptyBlockTexture,
                 redBlock,
@@ -45,6 +47,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         drawGame();
         fall();
+        checkIfGameOver();
     }
 
     @Override
@@ -111,5 +114,11 @@ public class GameScreen implements Screen {
         batch.begin();
         boardController.drawBoardAndFallingPiece(batch, textureResolver, BLOCK_HEIGHT, BLOCK_WIDTH);
         batch.end();
+    }
+
+    private void checkIfGameOver() {
+        if (boardController.isGameOver()) {
+            tetrisGame.showGameOverScreen();
+        }
     }
 }

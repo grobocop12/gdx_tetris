@@ -9,14 +9,14 @@ import java.util.Random;
 import java.util.Set;
 
 import static com.grobocop.tetris.BlockType.NONE;
-import static com.grobocop.tetris.GameConstants.BOARD_HEIGHT;
-import static com.grobocop.tetris.GameConstants.BOARD_WIDTH;
+import static com.grobocop.tetris.GameConstants.*;
 
 public class BoardController {
 
     private final Board board;
     private final PieceGenerator generator;
     private Piece piece;
+    private boolean gameOver = false;
 
     public BoardController() {
         board = new Board(new BlockType[BOARD_HEIGHT * BOARD_WIDTH], BOARD_WIDTH, BOARD_HEIGHT);
@@ -32,7 +32,9 @@ public class BoardController {
     public void spawnNewPiece() {
         stopFallingPiece();
         removeFullRows();
-        trySpawnNewPiece();
+        if (!trySpawnNewPiece()) {
+            this.gameOver = true;
+        }
     }
 
     public void hardDrop() {
@@ -78,6 +80,10 @@ public class BoardController {
 
     private void stopFallingPiece() {
         for (Block block : piece.getBlocks()) {
+            if (block.y >= MAX_Y) {
+                this.gameOver = true;
+                return;
+            }
             board.setBlock(block.x, block.y, block.blockType);
         }
     }
@@ -98,5 +104,9 @@ public class BoardController {
                 board.setBlock(j, i, NONE);
             }
         }
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 }
