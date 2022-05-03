@@ -1,5 +1,5 @@
 # Tetris
-Tetris clone created for desktops with lib-GDX.
+Tetris clone created for desktops with libGDX.
 ## Controls
 `← →` - Move
 
