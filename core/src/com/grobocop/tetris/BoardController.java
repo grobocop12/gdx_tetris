@@ -1,9 +1,11 @@
 package com.grobocop.tetris;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.grobocop.tetris.pieces.Piece;
 import com.grobocop.tetris.pieces.PieceGenerator;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -95,7 +97,17 @@ public class BoardController {
                 removed.add(block.y);
             }
         }
-        removed.stream().sorted((a, b) -> -(a - b)).forEach(board::pullDownToRow);
+        final Array<Integer> removedArray = new Array<Integer>();
+        removedArray.addAll((Integer[]) removed.toArray());
+        removedArray.sort(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer a, Integer b) {
+                return -(a - b);
+            }
+        });
+        for (Integer i : removedArray) {
+            board.pullDownToRow(i);
+        }
     }
 
     private void fillBoard() {
