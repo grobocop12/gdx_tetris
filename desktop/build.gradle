@@ -4,6 +4,7 @@ sourceSets.main.resources.srcDirs = ["../core/assets"]
 
 project.ext.mainClassName = "com.grobocop.tetris.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../core/assets")
+archivesBaseName = findProperty("jar.name")
 
 task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
